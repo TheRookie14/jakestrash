@@ -1,0 +1,30 @@
+@keyframes pageLoad {
+	from {opacity:0; position:relative; top:100px;}
+	to {opacity:1;position:relative; top:0px;}
+}
+h1{
+	font-family:Arial;
+	text-align:center;
+	font-size:150px;
+	animation-name: pageLoad;
+	animation-duration: 1s;
+}
+p{
+	font-family:Arial;
+	text-align:center;
+	font-size:50px;
+	animation-name: pageLoad;
+	animation-duration: 2s;
+}
+body{
+	color:white;
+	background-color:black;
+	
+	}
+.content{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	}
