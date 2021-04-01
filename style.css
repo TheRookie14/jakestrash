@@ -2,6 +2,10 @@
 	from {opacity:0; position:relative; top:100px;}
 	to {opacity:1;position:relative; top:0px;}
 }
+@keyframes videofade{
+	from {opacity:0;}
+	to {opacity:1;}
+}
 .pageTitle{
 	font-family:Arial;
 	text-align:center;
@@ -34,4 +38,6 @@ body{
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
+  animation-name: videofade;
+  animation-duration: 2s;
 }
