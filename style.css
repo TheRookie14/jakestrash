@@ -2,21 +2,34 @@
 	from {opacity:0; position:relative; top:100px;}
 	to {opacity:1;position:relative; top:0px;}
 }
+
+@keyframes backbtn {
+	from {opacity:0; position:relative; top:100px;}
+	to {opacity:1;position:relative; top:0px;}
+}
 @keyframes videofade{
 	from {opacity:0;}
 	to {opacity:1;}
 }
-.pageTitle{
+@keyframes videofadeout{
+		from {opacity:1;}
+	to {opacity:0;}
+}
+h1{
 	font-family:Arial;
 	text-align:center;
 	font-size:150px;
+}
+.pageTitle{
 	animation-name: pageLoad;
 	animation-duration: 1s;
 }
-.goAway{
+p{
 	font-family:Arial;
 	text-align:center;
 	font-size:50px;
+}
+.goAway{
 	animation-name: pageLoad;
 	animation-duration: 2s;
 }
@@ -40,4 +53,34 @@ body{
   min-height: 100%;
   animation-name: videofade;
   animation-duration: 2s;
+}
+.backbutton{
+	position: absolute;
+	opacity:0;
+	animation-name: pageLoad;
+	animation-duration: 2s;
+	animation-delay: 1s;
+	animation-fill-mode: forwards;
+	left: 50%;
+	top: 100%;
+	-webkit-transform: translate(-50%, 0%);
+	transform: translate(-50%, 100%);
+	background-color:white;
+	border: 0px solid black;
+	width:250px;
+	height:75px;
+	font-size:150%;
+}
+
+a:link.com {
+color: #FFFFFF;
+}
+a:active {
+color: #FFFFFF;
+}
+a:visited {
+color: #FFFFFF;
+}
+a:hover {
+color: #FFFFFF;
 }
