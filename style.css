@@ -55,7 +55,7 @@ body{
   animation-duration: 2s;
 }
 .backbutton{
-	position: absolute;
+	position: sticky;
 	opacity:0;
 	animation-name: pageLoad;
 	animation-duration: 2s;
