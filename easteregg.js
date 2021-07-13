@@ -59,7 +59,6 @@ splashes = [
     "type the konami code",
     "where awr yew",
     "off and on again",
-    "has games",
     "wow, a gun",
     "01189998819991197253",
     "grand dad",
@@ -82,7 +81,8 @@ splashes = [
     "here we go again",
     "are you my mummy",
     "don't blink",
-    "no stairway, denied"
+    "no stairway, denied",
+    "omg neil cicierega"
 ]
 
 document.title = "Jake's Trash: "+splashes[Math.floor(Math.random()*splashes.length)]
