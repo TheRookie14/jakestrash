@@ -78,7 +78,7 @@ splashes = [
     "ǝʇɐɯ ʎɐpƃ",
     "glory to arstotzka",
     "russell smash",
-    "here we go again",
+    "wheatley crab",
     "are you my mummy",
     "don't blink",
     "no stairway, denied",
