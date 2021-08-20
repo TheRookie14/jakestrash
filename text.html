@@ -6,6 +6,13 @@
 				background-color:gray;
 				text-align:center;
 			}
+			#canvas{
+				width:1000px;
+				height:500px;
+			}
+			p{
+				font-family:Arial;
+			}
 		</style>
 		<title>Fancy Word Generator Thingy</title>
 	</head>
@@ -13,7 +20,8 @@
 		<canvas id="canvas"></canvas><br>
 		<input id="text"></input>
 		<input id="color" onchange="updateColor()"></input>
-		<button onclick="apply()">test</button>
+		<button onclick="apply()">Go</button>
+		<p>Image may appear blurry however that won't show on Discord</p>
 		<script>
 		//yes i know this code is absolutely garbage shut up
 		var colpic = document.getElementById("color");
@@ -29,7 +37,7 @@
 		var canvas = document.getElementById("canvas");
 		var ctx=canvas.getContext("2d");
 		ctx.clearRect(0,0,canvas.width,canvas.height);
-		ctx.font="50px Comic Sans MS";
+		ctx.font="100px Comic Sans MS";
 		ctx.fillStyle = colpic.value;
 		ctx.textAlign = "center";
 		
