@@ -1,3 +1,4 @@
+//code written very lazily by jake
 var pattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 var current = 0;
 
@@ -78,7 +79,7 @@ splashes = [
     "ǝʇɐɯ ʎɐpƃ",
     "glory to arstotzka",
     "russell smash",
-    "wheatley crab",
+    "here we go again",
     "are you my mummy",
     "don't blink",
     "no stairway, denied",
