@@ -35,7 +35,7 @@ var keyHandler = function (event) {
 document.addEventListener('keydown', keyHandler, false);
 
 splashes = [
-    "screw hayfever",
+    "screw nfts",
     "amogus",
     "dream is bad",
     "reeeeeeeeeeeeeeee",
