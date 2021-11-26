@@ -34,8 +34,7 @@ var keyHandler = function (event) {
 
 document.addEventListener('keydown', keyHandler, false);
 
-splashes = (`
-screw nfts
+splashes = (`screw nfts
 amogus
 dream is bad
 reeeeeeeeeeeeeeee
@@ -83,7 +82,6 @@ here we go again
 are you my mummy
 don't blink
 no stairway denied
-omg neil cicierega
-`).split("\n");
+omg neil cicierega`).split("\n");
 
 document.title = "Jake's Trash: "+splashes[Math.floor(Math.random()*splashes.length)]
