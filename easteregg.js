@@ -76,7 +76,7 @@ aww man
 the cake is a lie
 the cake is a spy
 ǝʇɐɯ ʎɐpƃ
-glory to arstotzka
+love that danhausen
 russell smash
 here we go again
 are you my mummy
