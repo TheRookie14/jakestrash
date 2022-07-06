@@ -57,3 +57,10 @@ button{
     height:100vh;
     justify-content: center;
 }
+.scorecounter{
+    position:absolute;
+    font-family:Arial;
+    font-size:100px;
+    color:white;
+    right:50%;
+}

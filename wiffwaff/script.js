@@ -1,6 +1,8 @@
 var ping = new Audio('ping.mp3');
 var pong = new Audio('pong.mp3');
-var gameover = new Audio('gameover.wav')
+var gameover = new Audio('gameover.wav');
+let score = 0;
+let canScore = 1;
 const ball = document.getElementsByClassName("ball")[0];
 const paddle = document.getElementsByClassName("paddle")[0];
 const otherPaddle = document.getElementsByClassName("paddle")[1];
@@ -34,6 +36,12 @@ function gameOver(){
 function collisionDetection(){
     if(colliding(ball,paddle)){
         ball.style.left = 0+"px";
+        if(canScore == 1){
+        score += 1;
+        document.getElementsByClassName("scorecounter")[0].innerText = score;
+        canScore = 0;
+        setTimeout(function(){canScore = 1},200)
+        }
         try{pong.play();}catch{}
     }
     if(colliding(ball,otherPaddle)){
