@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Alphabetizer</title>
+		<style>
+		</style>
+	</head>
+	<body>
+		<textarea></textarea><br>
+		<button>Alphabetize</button>
+		<script>
+			const tx = document.getElementsByTagName("textarea");
+			for (let i = 0; i < tx.length; i++) {
+				tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+				tx[i].addEventListener("input", OnInput, false);
+			}
+			function OnInput() {
+				this.style.height = 0;
+				this.style.height = (this.scrollHeight) + "px";
+			}
+			function go(){
+				const textarea = document.getElementsByTagName("textarea")[0];
+				var text = textarea.value;
+				var lines = text.split('\n');
+				lines = lines.filter(function(line) {
+					return line.trim() !== '';
+				});
+				lines.sort();
+				var sortedText = lines.join('\n');
+				textarea.value = sortedText;
+			}
+			document.getElementsByTagName("button")[0].addEventListener("click",function(){go()});
+		</script>
+	</body>
+</html>	
