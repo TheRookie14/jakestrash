@@ -54,7 +54,7 @@ bonk
 minceraft
 8k 120fps ultra graphics
 what is a javascript
-stream american noir
+stream sanguivore
 say no to cow juice
 type the konami code
 where awr yew
@@ -82,6 +82,7 @@ here we go again
 are you my mummy
 don't blink
 no stairway denied
-omg neil cicierega`).split("\n");
+omg neil cicierega
+kiss the go goat`).split("\n");
 
 document.title = "Jake's Trash: "+splashes[Math.floor(Math.random()*splashes.length)]
