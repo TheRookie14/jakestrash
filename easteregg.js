@@ -34,27 +34,19 @@ var keyHandler = function (event) {
 
 document.addEventListener('keydown', keyHandler, false);
 
-splashes = (`screw nfts
-amogus
-dream is bad
-reeeeeeeeeeeeeeee
-when the impostor is sus
-im bored
-also try xkcd
+splashes = (`also try xkcd
 not an nft
 just the worst site
 zoinks
 yikes
 jeepers
 jinkies
-rip daft punk
 bonk
 404 splash not found
 20 GOTO 10
 minceraft
-8k 120fps ultra graphics
+8k 240fps ultra graphics
 what is a javascript
-stream sanguivore
 say no to cow juice
 type the konami code
 where awr yew
@@ -64,25 +56,16 @@ wow a gun
 grand dad
 :hsraT s'ekaJ
 that's numberwang
-completed it mate
 you owe me a fiver
-sub4sub?
-missingno
 THRILLHO
-yesterday i asked you
-give me the butter
-was that the bite of 87
-aww man
 the cake is a lie
 the cake is a spy
 ǝʇɐɯ ʎɐpƃ
-love that danhausen
 russell smash
 here we go again
 are you my mummy
 don't blink
-no stairway denied
-omg neil cicierega
-kiss the go goat`).split("\n");
+rite here, rite now
+the future is a foreign land`).split("\n");
 
 document.title = "Jake's Trash: "+splashes[Math.floor(Math.random()*splashes.length)]
