@@ -44,6 +44,7 @@
 		}
     </style>
 	<title>Hayfever: The Game</title>
+	<meta name = "viewport" content = "width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no">
 </head>
 <body>
     <div class="eyes">
@@ -89,6 +90,9 @@
 			pollen.onmousedown = "event.preventDefault ? event.preventDefault() : event.returnValue = false"
 			
 			pollen.addEventListener("click", function() {
+				pollen.parentNode.removeChild(pollen);
+			});
+			pollen.addEventListener("touchstart", function() {
 				pollen.parentNode.removeChild(pollen);
 			});
 
