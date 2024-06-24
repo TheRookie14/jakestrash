@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .eyes {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .eye {
+            border: 1px solid black;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 20px;
+        }
+        .pupil {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+		.pollen{
+			width: 100px;
+            height: 100px;
+            border-radius: 50%;
+			background-color: yellow;
+			opacity: 0.5;
+			position: absolute;
+			transition: all 5s linear;
+		}
+    </style>
+	<title>Hayfever: The Game</title>
+</head>
+<body>
+    <div class="eyes">
+        <div class="eye"><div class="pupil"></div></div>
+        <div class="eye"><div class="pupil"></div></div>
+    </div>
+    <script>
+		health = 100;
+		game = true;
+		function getRandomOffScreenCoordinates() {
+			const viewportWidth = window.innerWidth;
+			const viewportHeight = window.innerHeight;
+			const side = Math.floor(Math.random() * 4);
+			let x, y;
+			switch (side) {
+				case 0: // l
+					x = -Math.random() * viewportWidth - 50;
+					y = Math.random() * viewportHeight;
+					break;
+				case 1: // r
+					x = viewportWidth + Math.random() * viewportWidth + 50;
+					y = Math.random() * viewportHeight;
+					break;
+				case 2: // u
+					x = Math.random() * viewportWidth;
+					y = -Math.random() * viewportHeight - 50;
+					break;
+				case 3: // d
+					x = Math.random() * viewportWidth;
+					y = viewportHeight + Math.random() * viewportHeight + 50;
+					break;
+			}
+			return { x, y };
+		}
+		function spawnPollen() {
+			let pollen = document.createElement("div");
+			pollen.classList.add("pollen");
+			let coords = getRandomOffScreenCoordinates();
+			pollen.style.left = coords['x'] + "px";
+			pollen.style.top = coords['y'] + "px";
+			document.body.appendChild(pollen);
+
+			pollen.onmousedown = "event.preventDefault ? event.preventDefault() : event.returnValue = false"
+			
+			pollen.addEventListener("click", function() {
+				pollen.parentNode.removeChild(pollen);
+			});
+
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					pollen.style.left = "48%";
+					pollen.style.top = "45%";
+				});
+			});
+		}
+
+		function colliding(el1, el2) {
+                const domRect1 = el1.getBoundingClientRect();
+                const domRect2 = el2.getBoundingClientRect();
+
+                return !(
+                    domRect1.top > domRect2.bottom ||
+                    domRect1.right < domRect2.left ||
+                    domRect1.bottom < domRect2.top ||
+                    domRect1.left > domRect2.right
+                );
+            }
+            function collisionDetection(){
+                for(i=0;i<document.getElementsByClassName("pollen").length;i++){
+                    if(colliding(document.getElementsByClassName("eyes")[0],document.getElementsByClassName("pollen")[i])){
+                        document.getElementsByClassName("pollen")[i].parentNode.removeChild(document.getElementsByClassName("pollen")[i]);
+						health = health - 10;
+						let red = 255;
+						let green = 255 * (health / 100);
+						let blue = 255 * (health / 100);
+						document.getElementsByClassName("eye")[0].style.backgroundColor = `rgb(${red},${green},${blue})`;
+						document.getElementsByClassName("eye")[1].style.backgroundColor = `rgb(${red},${green},${blue})`;
+						document.body.style.filter = `blur(${(100-health)/10}px)`
+                    }
+                }
+            }
+
+
+        document.body.addEventListener("mousemove", function(e) {
+            const eyes = document.querySelectorAll('.eye');
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            eyes.forEach(eye => {
+                const eyeRect = eye.getBoundingClientRect();
+                const eyeX = eyeRect.left + eyeRect.width / 2;
+                const eyeY = eyeRect.top + eyeRect.height / 2;
+
+                const angle = Math.atan2(mouseY - eyeY, mouseX - eyeX);
+                const pupil = eye.querySelector('.pupil');
+                const radius = (eyeRect.width / 2) - (pupil.offsetWidth / 2);
+
+                const pupilX = eyeX + radius * Math.cos(angle) - eyeRect.left;
+                const pupilY = eyeY + radius * Math.sin(angle) - eyeRect.top;
+
+                pupil.style.left = `${pupilX}px`;
+                pupil.style.top = `${pupilY}px`;
+            });
+        });
+
+		setInterval(function(){
+			spawnPollen();
+		},1000)
+
+		setInterval(function(){
+			collisionDetection();
+			if(health == 0 && game){
+				alert("GAME OVER")
+				game = false
+			}
+		},1)
+    </script>
+</body>
+</html>
