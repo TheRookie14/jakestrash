@@ -245,6 +245,13 @@
 						dir = "down"
 					}
 				})
+				document.documentElement.addEventListener("touchstart",function(){
+					if(dir == "down"){
+						dir = "up"
+					}else{
+						dir = "down"
+					}
+				})
 
 				setInterval(function(){
 						if(!debug){
