@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Jake Can't Drive</title>
+		<style>
+			body {
+				padding: 0;
+				margin: 0;
+				overflow: hidden;
+				height: 100vh;
+				background-color: dimgray;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.player{
+				position:absolute;
+				background-image:url('assets/car.png');
+				width:100px;
+				height:50px;
+				z-index: 999;
+			}
+			.wheels{
+				position: inherit;
+				z-index:1000;
+				width:73px;
+				height:13px;
+				bottom:0px;
+				left:10px;
+			}
+			.road{
+				width:300px;
+				height:150px;
+				position: absolute;
+				background-image: url('assets/road.png');
+			}
+
+			#ocean {
+				width: 100vw; /* Full viewport width */
+				height: 100vh; /* Full viewport height */
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: -10;
+			}
+
+			.gameOverScreen{
+				height:100vh;
+				text-align: center;
+				z-index: 0;
+			}
+
+			h1, h2, h4 {
+				z-index: -999;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+
+			* {
+				user-select: none;
+				-khtml-user-select: none;
+				-o-user-select: none;
+				-moz-user-select: -moz-none;
+				-webkit-user-select: none;
+			}
+
+			::selection { background: transparent; color: inherit; }
+			::-moz-selection { background: transparent; color: inherit; }
+
+			/* Media Queries for Responsive Design */
+			@media (max-width: 768px) {
+				.player {
+					width: 10vw; /* Adjust sizing for smaller screens */
+					height: 5vw;
+				}
+
+				.road {
+					width: 60vw;
+					height: 30vw;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="gameOverScreen">
+			<center>
+			<h1>Inevitably, you have crashed.</h1><br>
+			<h2>Score: 0</h2>
+			<br>
+			<br>
+			<button style="width:200px;height:100px;font-size: larger;" id="tryagain">Try Again</button>
+		</center>
+		</div>
+		<div class="titleScreen">
+			<center>
+			<h1>JAKE CAN'T DRIVE</h1><br>
+			<h2>a game by jake</h2>
+			<br>
+			<br>
+			<button style="width:200px;height:100px;font-size: larger;" id="startgame">Play</button>
+			<h4>Click to change direction</h4>
+		</center>
+		</div>
+		<img src="assets/ocean.png" alt="" id="ocean">
+		<div class="player"><div class="wheels"></div></div>
+		<script>
+			debug = false;
+			isGameRunning = false;
+			const player = document.getElementsByClassName("player")[0];
+			const wheels = document.getElementsByClassName("wheels")[0];
+			speed = 0.01;
+			player.style.top = 10+"px";
+			player.style.bottom = 0+"px";
+			x = 0;
+			dir = "up";
+			roadStartX = 0;
+			roadStartY = 0;
+			roadDirs = ["up","down","down","down","down"];
+			score = 0;
+			document.getElementsByClassName("gameOverScreen")[0].hidden = true
+			ocean.hidden = true;
+			player.hidden = true;
+
+			tryagain.addEventListener("click",function(){location.reload();});
+			startgame.addEventListener("click",function(){startGame()});
+			
+			function spawnRoad(y){
+				road = document.createElement("div");
+				road.classList.add("road");
+				document.body.appendChild(road);
+				road.style.top = roadStartY;
+				road.style.left = roadStartX+"px";
+				roadStartX += 150;
+			}
+
+			function moveRoadDivsLeft() {
+				// Select all divs with the class 'road'
+				const roadDivs = document.querySelectorAll('div.road');
+
+				// Loop through each div and adjust its position
+				roadDivs.forEach((div) => {
+					// Get the current left position
+					const currentLeft = parseInt(window.getComputedStyle(div).left, 10) || 0;
+					
+					// Move the div 1 pixel to the left
+					div.style.left = `${currentLeft - 1}px`;
+					if(parseInt(div.style.left) < -300){
+						div.parentNode.removeChild(div)
+					}
+				});
+			}
+			function isColliding(playerV, roadV) {
+				// Get the bounding boxes of the player and the road element
+				const playerRect = playerV.getBoundingClientRect();
+				const roadRect = roadV.getBoundingClientRect();
+
+				// Check for collision
+				return !(
+					playerRect.top > roadRect.bottom ||
+					playerRect.bottom < roadRect.top ||
+					playerRect.left > roadRect.right ||
+					playerRect.right < roadRect.left
+				);
+			}
+
+			function checkPlayerCollision() {
+				// Get the player element
+				if (!player) {
+					console.error('Player element not found');
+					return false;
+				}
+
+				// Get all elements with the class 'road'
+				const roads = document.getElementsByClassName('road');
+				for (let i = 0; i < roads.length; i++) {
+					if (isColliding(wheels, roads[i])) {
+						return true; // Collision detected
+					}
+				}
+				return false; // No collision detected
+			}
+
+
+			function gameOver(){
+				debug = true;
+				isGameRunning = false;
+				const roads = document.getElementsByClassName("road");
+				for(let i = roads.length - 1; i >= 0; i--) {
+					roads[i].parentNode.removeChild(roads[i]);
+				}
+				player.parentNode.removeChild(player);
+				ocean.parentNode.removeChild(ocean);
+				document.getElementsByClassName("gameOverScreen")[0].hidden = false;
+			}
+
+			function startGame(){
+				isGameRunning = true;
+				document.getElementsByClassName("titleScreen")[0].hidden = true
+				ocean.hidden = false;
+				player.hidden = false;
+
+					for(i=0;i<15;i++){
+					spawnRoad();
+				}
+
+				setInterval(function(){
+					if(document.getElementsByClassName("road").length < 50 && isGameRunning){
+						spawnRoad();
+					}else{
+						roadStartX -= 150;
+					}
+					var roadDir = roadDirs[Math.floor(Math.random()*roadDirs.length)];
+					if(roadDir == "up" && parseInt(roadStartY) > 0){
+						roadStartY = parseInt(roadStartY) - 10 +"px"
+					}else if(roadDir == "down" && parseInt(roadStartY) < 800){
+						roadStartY = parseInt(roadStartY) + 10 +"px"
+					}
+				},300)
+				
+				setInterval(function(){		
+					x += speed;
+					if(dir == "down"){
+						speed += 0.01;
+					}else{
+						speed -= 0.01;
+					}
+					if(!debug && isGameRunning){
+						player.style.top = x+"px";
+						moveRoadDivsLeft();
+					}
+
+					if(!checkPlayerCollision() && !debug){
+						gameOver();
+					}
+					if(parseInt(roadStartY) >= 400){
+						roadDirs = ["up","up","up","up","up","down"];
+					}else{
+						roadDirs = ["up","down","down","down","down"];
+					}
+				},1)
+				document.documentElement.addEventListener("click",function(){
+					if(dir == "down"){
+						dir = "up"
+					}else{
+						dir = "down"
+					}
+				})
+
+				setInterval(function(){
+						if(!debug){
+							score += 1;
+							document.getElementsByTagName("h2")[0].innerText = "Score: "+score;
+						}
+					},1000)
+
+			}
+
+			
+
+		</script>
+	</body>
+</html>	
